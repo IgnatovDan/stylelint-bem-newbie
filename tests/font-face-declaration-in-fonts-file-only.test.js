@@ -1,8 +1,8 @@
 const getTestRule = require('jest-preset-stylelint/getTestRule');
 
-global.testRule = getTestRule({ plugins: ['./rules/font-face-declaration-in-fonts-file-only.js'] });
+const testRule = getTestRule({ plugins: ['./rules/font-face-declaration-in-fonts-file-only.js'] });
 
-const { ruleName } = require('../rules/font-face-declaration-in-fonts-file-only.js');
+const { ruleName } = require('../rules/font-face-declaration-in-fonts-file-only');
 
 testRule({
   ruleName,
@@ -54,7 +54,7 @@ testRule({
       code: '@font-face {}',
       message: `@font-face declaration is expected in a fonts css file only, but was found in 'any-other.css' (${ruleName})`,
     },
-  ]
+  ],
 });
 
 testRule({
@@ -67,5 +67,5 @@ testRule({
       code: '@font-face {}',
       message: `@font-face declaration is expected in a fonts css file only, but was found in 'any-other.css' (${ruleName})`,
     },
-  ]
+  ],
 });

@@ -1,16 +1,16 @@
 const getTestRule = require('jest-preset-stylelint/getTestRule');
 
-global.testRule = getTestRule({ plugins: ['./rules/import-normalize.js'] });
+const testRule = getTestRule({ plugins: ['./rules/import-normalize.js'] });
 
-const { ruleName } = require('../rules/import-normalize.js');
+const { ruleName } = require('../rules/import-normalize');
 
 testRule({
   ruleName,
   config: true,
   skipBasicChecks: true,
   accept: [
-    { code: `@import url(../vendor/normalize.css);` },
-    { code: `@import '../vendor/normalize.css';` },
+    { code: '@import url(../vendor/normalize.css);' },
+    { code: '@import \'../vendor/normalize.css\';' },
     {
       code: `
         @import url(../vendor/normalize.css);
@@ -19,15 +19,15 @@ testRule({
   ],
   reject: [
     {
-      code: `@import ../vendor/normalize.css;`,
-      message: `Unknown error occurred: 'TypeError: Cannot read properties of undefined (reading '0')' (${ruleName})`,      
+      code: '@import ../vendor/normalize.css;',
+      message: `Unknown error occurred: 'TypeError: Cannot read properties of undefined (reading '0')' (${ruleName})`,
     },
     {
-      code: `@import url(../normalize.css)`,
+      code: '@import url(../normalize.css)',
       message: `Expected '../normalize.css' to be '../vendor/normalize.css' (${ruleName})`,
     },
     {
-      code: `@import url(../styles/normalize.css)`,
+      code: '@import url(../styles/normalize.css)',
       message: `Expected '../styles/normalize.css' to be '../vendor/normalize.css' (${ruleName})`,
     },
     {

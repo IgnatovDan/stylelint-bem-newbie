@@ -5,5 +5,5 @@ function unknownErrorOccurredRuleMessage(errorMessage) {
 }
 
 module.exports = {
-  unknownErrorOccurredRuleMessage
+  unknownErrorOccurredRuleMessage,
 };

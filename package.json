@@ -15,10 +15,16 @@
   "author": "Dan Ignatov",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^8.31.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "jest": "^29.3.1",
     "jest-preset-stylelint": "^6.0.0"
   },
-  "dependencies": {
+  "peerDependencies": {
     "stylelint": "^14.16.1"
+  },
+  "dependencies": {
+    "postcss-value-parser": "^4.2.0"
   }
 }

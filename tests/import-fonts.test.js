@@ -1,8 +1,8 @@
 const getTestRule = require('jest-preset-stylelint/getTestRule');
 
-global.testRule = getTestRule({ plugins: ['./rules/import-fonts.js'] });
+const testRule = getTestRule({ plugins: ['./rules/import-fonts.js'] });
 
-const { ruleName } = require('../rules/import-fonts.js');
+const { ruleName } = require('../rules/import-fonts');
 
 testRule({
   ruleName,
@@ -30,19 +30,19 @@ testRule({
   ],
   reject: [
     {
-      code: `@import ../fonts/fonts.css;`,
-      message: `Unknown error occurred: 'TypeError: Cannot read properties of undefined (reading '0')' (${ruleName})`,      
+      code: '@import ../fonts/fonts.css;',
+      message: `Unknown error occurred: 'TypeError: Cannot read properties of undefined (reading '0')' (${ruleName})`,
     },
     {
       code: '@import url(../blocks/font.css)',
       message: `Expected fonts css file to be in the 'vendor' or 'fonts' root folder, but found '../blocks/font.css' (${ruleName})`,
     },
     {
-      code: `@import url(../fonts.css)`,
+      code: '@import url(../fonts.css)',
       message: `Expected fonts css file to be in the 'vendor' or 'fonts' root folder, but found '../fonts.css' (${ruleName})`,
     },
     {
-      code: `@import url(../styles/fonts.css)`,
+      code: '@import url(../styles/fonts.css)',
       message: `Expected fonts css file to be in the 'vendor' or 'fonts' root folder, but found '../styles/fonts.css' (${ruleName})`,
     },
     {
@@ -55,7 +55,7 @@ testRule({
       code: `
         @import url(../blocks/page/page.css);
         @import url(../font/font.css);`,
-        message: `Expected '../font/font.css' to be included before 'blocks' files (${ruleName})`,
-      },
+      message: `Expected '../font/font.css' to be included before 'blocks' files (${ruleName})`,
+    },
   ],
 });
