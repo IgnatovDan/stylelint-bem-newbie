@@ -1,0 +1,16 @@
+{
+  "name": "bem-newbie",
+  "version": "0.0.1",
+  "description": "Stylelint rules to validate CSS by BEM rules",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "bem",
+    "stylelint",
+    "rule"
+  ],
+  "author": "Dan Ignatov",
+  "license": "MIT"
+}
