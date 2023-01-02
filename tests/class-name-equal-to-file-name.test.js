@@ -1,9 +1,10 @@
 const getTestRule = require('jest-preset-stylelint/getTestRule');
 
-global.testRule = getTestRule({ plugins: ['./rules/class-name-equal-to-file-name.js'] });
+const testRule = getTestRule({ plugins: ['./rules/class-name-equal-to-file-name.js'] });
 
 const { ruleName, rule } = require('../rules/class-name-equal-to-file-name');
-const messages = rule.messages;
+
+const { messages } = rule;
 
 testRule({
   ruleName,
@@ -43,7 +44,7 @@ testRule({
   reject: [
     {
       code: '.root {}',
-      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root')
+      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root'),
     },
   ],
 });
@@ -56,7 +57,7 @@ testRule({
   reject: [
     {
       code: '.root::hover {}',
-      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root')
+      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root'),
     },
   ],
 });
@@ -69,7 +70,7 @@ testRule({
   reject: [
     {
       code: '.root::first-of-type {}',
-      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root')
+      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root'),
     },
   ],
 });
@@ -82,7 +83,7 @@ testRule({
   reject: [
     {
       code: '.page .root {}',
-      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root')
+      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root'),
     },
   ],
 });
