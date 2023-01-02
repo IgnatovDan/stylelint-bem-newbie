@@ -4,13 +4,21 @@
   "description": "Stylelint rules to validate CSS by BEM rules",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "jest --coverage && eslint ."
   },
   "keywords": [
     "bem",
     "stylelint",
-    "rule"
+    "rule",
+    "stylelint-plugin"
   ],
   "author": "Dan Ignatov",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.3.1",
+    "jest-preset-stylelint": "^6.0.0"
+  },
+  "dependencies": {
+    "stylelint": "^14.16.1"
+  }
 }
