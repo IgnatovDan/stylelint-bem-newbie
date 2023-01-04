@@ -13,7 +13,7 @@ const ruleName = `${pluginNamespace}/class-name-equal-to-file-name`;
 
 const messages = ruleMessages(ruleName, {
   expectClassNameToBeEqualToFileName:
-    (fileName, className) => `The CSS class name '${className}' is expected to be equal to its file name '${fileName}'`,
+    (fileName, className) => `Expected CSS class name '${className}' to be equal to its file name '${fileName}'`,
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 
@@ -21,8 +21,12 @@ const messages = ruleMessages(ruleName, {
 
 const ruleFunction = () => (root, result) => {
   const cssFullFilePath = root.source?.input?.file;
-  const fileName = path.parse(cssFullFilePath).name;
-  const fileBase = path.parse(cssFullFilePath).base;
+  const { name: fileName, base: fileBase, dir: fileDir } = path.parse(cssFullFilePath);
+
+  if (!fileDir || !fileBase
+    || fileDir?.includes('styles') || fileBase?.toLowerCase() === 'style.css' || fileBase?.toLowerCase() === 'styles.css') {
+    return;
+  }
 
   root.walkRules((rule) => {
     try {
