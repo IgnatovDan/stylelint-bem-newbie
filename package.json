@@ -1,7 +1,7 @@
 {
   "name": "stylelint-bem-newbie",
   "version": "0.0.1",
-  "description": "Stylelint rules to validate CSS by BEM rules",
+  "description": "Stylelint rules to validate CSS by BEM rules, part of https://github.com/IgnatovDan/bem-project",
   "repository": "IgnatovDan/stylelint-bem-newbie",
   "main": "index.js",
   "author": "Dan Ignatov",
