@@ -3,6 +3,7 @@ const validateImportNormalize = require('./rules/import-normalize');
 const fontFaceDeclarationInFontsFileOnly = require('./rules/font-face-declaration-in-fonts-file-only');
 const validateFontFaceDeclarationSrc = require('./rules/font-face-duplicate-src');
 const classNameEqualToFileName = require('./rules/class-name-equal-to-file-name');
+const duplicatedPropertyValueInMedia = require('./rules/duplicated-property-value-in-media');
 
 const plugins = [
   validateImportFonts,
@@ -10,6 +11,7 @@ const plugins = [
   fontFaceDeclarationInFontsFileOnly,
   validateFontFaceDeclarationSrc,
   classNameEqualToFileName,
+  duplicatedPropertyValueInMedia,
 ];
 
 module.exports = plugins;
