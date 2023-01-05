@@ -28,6 +28,7 @@ Setup plugin in [stylelint config](http://stylelint.io/user-guide/configuration/
     "bem-newbie/font-face-declaration-in-fonts-file-only": true,
     "bem-newbie/font-face-duplicate-src": true,
     "bem-newbie/class-name-equal-to-file-name": true,
+    "duplicated-property-value-in-media": true,
     ...
   }
 }
@@ -45,6 +46,8 @@ Checks that @font-face { src } attribute value is specified one time only
 Checks that 'fonts' CSS file is located in the 'vendor' or 'fonts' or 'font' folders
 1. import-normalize  
 Checks that 'normalize' CSS file is located in the 'vendor' folder
+1. duplicated-property-value-in-media
+Checks that property values in @media sections don't duplicates previously declared values for the same properties
 
 ## Used technologies:
 - ESLint
