@@ -18,10 +18,10 @@ function getRuleDisplayName(rule) {
   // https://postcss.org/api/
   // Rule#type
   // Possible values are root, atrule, rule, decl, or comment.
-  if (rule.parent?.type === 'root') {
+  if (rule?.parent?.type === 'root') {
     return rule.selector;
   }
-  if (rule.parent?.type === 'atrule') {
+  if (rule?.parent?.type === 'atrule') {
     return `@${rule.parent?.name} ${rule.parent?.params}`;
   }
   /* istanbul ignore next */
@@ -31,6 +31,14 @@ function getRuleDisplayName(rule) {
 function isSecondaryDeclaration(declarations, decl) {
   return (decl.prop in declarations && declarations[decl.prop]
     && (declarations[decl.prop].parent?.selector === decl.parent?.selector));
+}
+
+function isMinMaxMedia(declaration) {
+  const atrule = declaration.parent?.parent;
+  if (atrule?.type === 'atrule' && atrule?.name === 'media') {
+    return atrule.params?.toLowerCase().includes('min-width') && atrule.params?.toLowerCase().includes('max-width');
+  }
+  return false;
 }
 
 /*
@@ -66,7 +74,9 @@ const ruleFunction = () => (root, result) => {
           });
         }
       }
-      declarations[decl.prop] = decl;
+      if (!isMinMaxMedia(decl)) {
+        declarations[decl.prop] = decl;
+      }
     } catch (e) {
       /* istanbul ignore next */
       report({
