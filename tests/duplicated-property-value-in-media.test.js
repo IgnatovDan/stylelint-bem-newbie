@@ -39,14 +39,14 @@ testRule({
     },
     {
       code: `
-        @media (min-width: 200px and max-width: 400px) { .page { width: 0; } }
-        @media (min-width: 400px and max-width: 600px) { .page { width: 0; } }`,
+        @media (min-width: 200px) and (max-width: 400px) { .page { width: 0; } }
+        @media (min-width: 400px) and (max-width: 600px) { .page { width: 0; } }`,
     },
     {
       code: `
         .page { width: 1px; }
-        @media (min-width: 200px and max-width: 400px) { .page { width: 0; } }
-        @media (min-width: 400px and max-width: 600px) { .page { width: 0; } }`,
+        @media (min-width: 200px) and (max-width: 400px) { .page { width: 0; } }
+        @media (min-width: 400px) and (max-width: 600px) { .page { width: 0; } }`,
     },
   ],
   reject: [
@@ -85,8 +85,8 @@ testRule({
     {
       code: `
         .page { width: 0; }
-        @media (min-width: 400px and max-width: 600px) { .page { width: 0; } }`,
-      message: messages.unexpectedDuplicatedPropertyValue('width: 0', '.page', '@media (min-width: 400px and max-width: 600px)'),
+        @media (min-width: 400px) and (max-width: 600px) { .page { width: 0; } }`,
+      message: messages.unexpectedDuplicatedPropertyValue('width: 0', '.page', '@media (min-width: 400px) and (max-width: 600px)'),
     },
     /*
     Not supported:
