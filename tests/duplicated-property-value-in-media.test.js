@@ -8,6 +8,7 @@ testRule({
   ruleName,
   config: true,
   skipBasicChecks: true,
+  codeFilename: 'blocks/page.css',
   accept: [
     { code: '.page { width: 0; }' },
     {
@@ -103,5 +104,19 @@ testRule({
       message: messages.unexpectedDuplicatedPropertyValue('margin: 0', '.page', '@media (max-width: 200px)'),
     },
     */
+  ],
+});
+
+testRule({
+  ruleName,
+  config: true,
+  skipBasicChecks: true,
+  codeFilename: 'other/page.css',
+  accept: [
+    {
+      code: `
+        .page { width: 0; }
+        @media (max-width: 800px) { .page { width: 0; } }`,
+    },
   ],
 });

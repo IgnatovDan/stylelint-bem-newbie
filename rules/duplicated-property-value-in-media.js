@@ -1,3 +1,4 @@
+const path = require('path');
 const stylelint = require('stylelint');
 const { pluginNamespace } = require('./utils/plugin-namespace');
 const { unknownErrorOccurredRuleMessage } = require('./utils/unknownErrorOccurredRuleMessage');
@@ -37,6 +38,13 @@ function isSecondaryDeclaration(declarations, decl) {
 */
 
 const ruleFunction = () => (root, result) => {
+  const cssFullFilePath = root.source?.input?.file;
+  const { dir: fileDir } = path.parse(cssFullFilePath);
+
+  if (!fileDir || !fileDir?.toLowerCase().includes('blocks')) {
+    return;
+  }
+
   const declarations = {};
   // https://postcss.org/api/
   // Root#walkDecls()
