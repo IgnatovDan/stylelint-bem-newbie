@@ -32,9 +32,14 @@ function isSecondaryDeclaration(declarations, decl) {
     && (declarations[decl.prop].parent?.selector === decl.parent?.selector));
 }
 
+/*
+  See tests for more details about supported and not supported configs
+*/
+
 const ruleFunction = () => (root, result) => {
   const declarations = {};
   // https://postcss.org/api/
+  // Root#walkDecls()
   root.walkDecls((decl) => {
     try {
       if (isSecondaryDeclaration(declarations, decl)) {

@@ -96,6 +96,12 @@ testRule({
         @media (max-width: 800px) { .page { width: 0; } }`,
       message: messages.unexpectedDuplicatedPropertyValue('width: 0px', '.page', '@media (max-width: 800px)'),
     },
+    {
+      code: `
+        .page { margin: 0; }
+        @media (max-width: 200px) { .page { margin-top: 0; } }`,
+      message: messages.unexpectedDuplicatedPropertyValue('margin: 0', '.page', '@media (max-width: 200px)'),
+    },
     */
   ],
 });
