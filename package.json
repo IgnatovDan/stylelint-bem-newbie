@@ -29,6 +29,7 @@
     "stylelint": "^14.16.1"
   },
   "dependencies": {
+    "postcss": "^8.4.21",
     "postcss-value-parser": "^4.2.0"
   }
 }

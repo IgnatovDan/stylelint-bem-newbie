@@ -5,7 +5,7 @@ const { ruleName, rule } = require('../rules/duplicated-property-value-in-modifi
 const testRule = getTestRule({ plugins: ['./rules/duplicated-property-value-in-modifier.js'] });
 const { messages } = rule;
 
-const { readFileSync } = fs;
+const { readFileSync, existsSync } = fs;
 const widthZeroName = 'width-zero';
 
 // eslint-disable-next-line no-undef
@@ -15,8 +15,15 @@ beforeEach(() => {
     if (path.toString().toLowerCase().includes(`${widthZeroName}.css`)) {
       return `.${widthZeroName} { width: 0; }`;
     }
-
     return readFileSync(path, options);
+  });
+
+  // eslint-disable-next-line no-undef
+  jest.spyOn(fs, 'existsSync').mockImplementation((path) => {
+    if (path.toString().toLowerCase().includes(`${widthZeroName}.css`)) {
+      return true;
+    }
+    return existsSync(path);
   });
 });
 
