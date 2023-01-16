@@ -52,6 +52,11 @@ const { tryParseBemName } = require('../rules/utils/try-parse-bem-name');
 //   writeStream.end();
 // });
 
+test('1', () => {
+  const bemName = tryParseBemName('1');
+  expect(bemName).toBe(undefined);
+});
+
 test('block', () => {
   const bemName = tryParseBemName('block');
   expect(bemName?.block).toBe('block');
