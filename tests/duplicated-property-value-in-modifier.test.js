@@ -7,6 +7,7 @@ const { messages } = rule;
 
 const { readFileSync, existsSync } = fs;
 const fileBlockWidthZero = 'file-width-zero';
+const fileBlockMediaWidthZero = 'file-media-width-zero';
 const fileElementWidthZero = 'file-width-zero__el';
 const fileEmpty = 'file-empty';
 
@@ -23,6 +24,9 @@ beforeEach(() => {
     if (path.toString().toLowerCase().includes(`${fileEmpty}.css`)) {
       return '';
     }
+    if (path.toString().toLowerCase().includes(`${fileBlockMediaWidthZero}.css`)) {
+      return `@media (max-width: 800px) { .${fileBlockMediaWidthZero} { width: 0; } }`;
+    }
     return readFileSync(path, options);
   });
 
@@ -31,7 +35,8 @@ beforeEach(() => {
     if (
       path.toString().toLowerCase().includes(`${fileBlockWidthZero}.css`)
       || path.toString().toLowerCase().includes(`${fileElementWidthZero}.css`)
-      || path.toString().toLowerCase().includes(`${fileEmpty}.css`)) {
+      || path.toString().toLowerCase().includes(`${fileEmpty}.css`)
+      || path.toString().toLowerCase().includes(`${fileBlockMediaWidthZero}.css`)) {
       return true;
     }
     return existsSync(path);
@@ -113,6 +118,18 @@ testRule({
     {
       code: '.page__element_owner-file-does-not-exist { width: 0; }',
       description: 'blocks/page/__element/page_element_owner-file-does-not-exist.css',
+    },
+  ],
+});
+
+testRule({
+  ruleName,
+  config: true,
+  skipBasicChecks: true,
+  codeFilename: `blocks/${fileBlockMediaWidthZero}/_modifier/${fileBlockMediaWidthZero}_modifier.css`,
+  accept: [
+    {
+      code: '.file-media-width-zero_modifier { width: 0; }',
     },
   ],
 });
