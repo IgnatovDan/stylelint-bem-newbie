@@ -6,18 +6,22 @@ const testRule = getTestRule({ plugins: ['./rules/duplicated-property-value-in-m
 const { messages } = rule;
 
 const { readFileSync, existsSync } = fs;
-const blockWidthZero = 'file-width-zero';
-const elementWidthZero = 'file-width-zero__el';
+const fileBlockWidthZero = 'file-width-zero';
+const fileElementWidthZero = 'file-width-zero__el';
+const fileEmpty = 'emptyFile';
 
 // eslint-disable-next-line no-undef
 beforeEach(() => {
   // eslint-disable-next-line no-undef
   jest.spyOn(fs, 'readFileSync').mockImplementation((path, options) => {
-    if (path.toString().toLowerCase().includes(`${blockWidthZero}.css`)) {
-      return `.${blockWidthZero} { width: 0; }`;
+    if (path.toString().toLowerCase().includes(`${fileBlockWidthZero}.css`)) {
+      return `.${fileBlockWidthZero} { width: 0; }`;
     }
-    if (path.toString().toLowerCase().includes(`${elementWidthZero}.css`)) {
-      return `.${elementWidthZero} { width: 0; }`;
+    if (path.toString().toLowerCase().includes(`${fileElementWidthZero}.css`)) {
+      return `.${fileElementWidthZero} { width: 0; }`;
+    }
+    if (path.toString().toLowerCase().includes(`${fileEmpty}.css`)) {
+      return '';
     }
     return readFileSync(path, options);
   });
@@ -25,8 +29,9 @@ beforeEach(() => {
   // eslint-disable-next-line no-undef
   jest.spyOn(fs, 'existsSync').mockImplementation((path) => {
     if (
-      path.toString().toLowerCase().includes(`${blockWidthZero}.css`)
-      || path.toString().toLowerCase().includes(`${elementWidthZero}.css`)) {
+      path.toString().toLowerCase().includes(`${fileBlockWidthZero}.css`)
+      || path.toString().toLowerCase().includes(`${fileElementWidthZero}.css`)
+      || path.toString().toLowerCase().includes(`${fileEmpty}.css`)) {
       return true;
     }
     return existsSync(path);
@@ -56,6 +61,16 @@ testRule({
   codeFilename: 'blocks/page_owner-file-does-not-exist.css',
   accept: [
     { code: '.page_owner-file-does-not-exist { width: 0; }', description: 'blocks/page_owner-file-does-not-exist.css' },
+  ],
+});
+
+testRule({
+  ruleName,
+  config: true,
+  skipBasicChecks: true,
+  codeFilename: `blocks/${fileEmpty}_modifier.css`,
+  accept: [
+    { code: '.file-empty_modifier { width: 0; }', description: 'blocks/file-empty_modifier' },
   ],
 });
 
