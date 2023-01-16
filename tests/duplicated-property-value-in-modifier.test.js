@@ -48,6 +48,16 @@ testRule({
   ruleName,
   config: true,
   skipBasicChecks: true,
+  codeFilename: 'other-folder/page.css',
+  accept: [
+    { code: '.page { width: 0; }', description: 'other-folder/page.css' },
+  ],
+});
+
+testRule({
+  ruleName,
+  config: true,
+  skipBasicChecks: true,
   codeFilename: 'blocks/page.css',
   accept: [
     { code: '.page { width: 0; }', description: 'blocks/page.css + .page' },
