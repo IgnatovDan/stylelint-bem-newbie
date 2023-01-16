@@ -8,7 +8,7 @@ const { messages } = rule;
 const { readFileSync, existsSync } = fs;
 const fileBlockWidthZero = 'file-width-zero';
 const fileElementWidthZero = 'file-width-zero__el';
-const fileEmpty = 'emptyFile';
+const fileEmpty = 'file-empty';
 
 // eslint-disable-next-line no-undef
 beforeEach(() => {
@@ -42,6 +42,26 @@ beforeEach(() => {
 afterEach(() => {
   // eslint-disable-next-line no-undef
   jest.clearAllMocks();
+});
+
+testRule({
+  ruleName,
+  config: true,
+  skipBasicChecks: true,
+  codeFilename: '1.css',
+  accept: [
+    { code: '.page { width: 0; }', description: '1.css' },
+  ],
+});
+
+testRule({
+  ruleName,
+  config: true,
+  skipBasicChecks: true,
+  codeFilename: 'blocks/1.css',
+  accept: [
+    { code: '.page { width: 0; }', description: 'blocks/1.css' },
+  ],
 });
 
 testRule({
