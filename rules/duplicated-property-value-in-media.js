@@ -2,36 +2,20 @@ const path = require('path');
 const stylelint = require('stylelint');
 const { pluginNamespace } = require('./utils/plugin-namespace');
 const { unknownErrorOccurredRuleMessage } = require('./utils/unknownErrorOccurredRuleMessage');
+const { containsPropertyValueDeclaration } = require('./utils/contains-property-value-declaration');
+const { getRuleDisplayText } = require('./utils/get-rule-display-text');
+const { getDeclarationDisplayText } = require('./utils/get-declaration-display-text');
 
 const { report, ruleMessages } = stylelint.utils;
 const ruleName = `${pluginNamespace}/duplicated-property-value-in-media`;
 
 const messages = ruleMessages(ruleName, {
   unexpectedDuplicatedPropertyValue:
-    (propertyDeclaration, firstMedia, secondaryMedia) =>
-      // eslint-disable-next-line implicit-arrow-linebreak
-      `Unexpected '${propertyDeclaration}' in '${secondaryMedia}' duplicates the same declaration in '${firstMedia}'`,
+    (propertyDeclaration, firstContextDisplayText, secondContextDisplayText) =>
+      // eslint-disable-next-line implicit-arrow-linebreak, max-len
+      `Unexpected '${propertyDeclaration}' in '${secondContextDisplayText}' duplicates the same declaration in '${firstContextDisplayText}'`,
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
-
-function getRuleDisplayName(rule) {
-  // https://postcss.org/api/
-  // Rule#type
-  // Possible values are root, atrule, rule, decl, or comment.
-  if (rule?.parent?.type === 'root') {
-    return rule.selector;
-  }
-  if (rule?.parent?.type === 'atrule') {
-    return `@${rule.parent?.name} ${rule.parent?.params}`;
-  }
-  /* istanbul ignore next */
-  return 'unknown';
-}
-
-function isSecondaryDeclaration(declarations, decl) {
-  return (decl.prop in declarations && declarations[decl.prop]
-    && (declarations[decl.prop].parent?.selector === decl.parent?.selector));
-}
 
 function isMinMaxMedia(declaration) {
   const atrule = declaration.parent?.parent;
@@ -50,6 +34,7 @@ const ruleFunction = () => (root, result) => {
   const { dir: fileDir } = path.parse(cssFullFilePath);
 
   if (!fileDir || !fileDir?.toLowerCase().includes('blocks')) {
+    // TODO: use tryParseBemName to check if it is target file
     return;
   }
 
@@ -58,21 +43,17 @@ const ruleFunction = () => (root, result) => {
   // Root#walkDecls()
   root.walkDecls((decl) => {
     try {
-      if (isSecondaryDeclaration(declarations, decl)) {
-        if (declarations[decl.prop].value === decl.value) {
-          const firstParentDisplayText = getRuleDisplayName(declarations[decl.prop].parent);
-          const secondParentDisplayText = getRuleDisplayName(decl.parent);
-          // https://postcss.org/api/
-          // Declaration#toString()
-          const declDisplayText = decl.toString();
+      if (containsPropertyValueDeclaration(declarations, decl.prop, decl.value, decl.parent?.selector)) {
+        const firstRuleDisplayText = getRuleDisplayText(declarations[decl.prop].parent);
+        const secondRuleDisplayText = getRuleDisplayText(decl.parent);
+        const declDisplayText = getDeclarationDisplayText(decl);
 
-          report({
-            ruleName,
-            result,
-            message: messages.unexpectedDuplicatedPropertyValue(declDisplayText, firstParentDisplayText, secondParentDisplayText),
-            node: decl,
-          });
-        }
+        report({
+          ruleName,
+          result,
+          message: messages.unexpectedDuplicatedPropertyValue(declDisplayText, firstRuleDisplayText, secondRuleDisplayText),
+          node: decl,
+        });
       }
       if (!isMinMaxMedia(decl)) {
         declarations[decl.prop] = decl;

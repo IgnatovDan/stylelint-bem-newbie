@@ -10,6 +10,29 @@
     - https://github.com/nglazov/bem-validator-page/blob/main/src/index.js
 */
 
+class BemName {
+  constructor({
+    block, el, mod, modValue,
+  }) {
+    this.block = block;
+    this.el = el;
+    this.mod = mod;
+    this.modValue = modValue;
+  }
+
+  tryGetModifierOwnerName() {
+    if (this.mod || this.modValue) {
+      const resultArray = [this.block];
+      if (this.el) {
+        resultArray.push('__');
+        resultArray.push(this.el);
+      }
+      return resultArray.join('');
+    }
+    return null;
+  }
+}
+
 function tryParseBemName(str) {
   const name = '[a-z]+[a-z\\-]*';
   const block1 = `(?<block1>${name})`;
@@ -27,12 +50,12 @@ function tryParseBemName(str) {
     return undefined;
   }
 
-  return {
+  return new BemName({
     block: groups.block1 || groups.block2,
     el: groups.el1 || groups.el2,
     mod: groups.mod1 || groups.mod2,
     modValue: groups.modValue2,
-  };
+  });
 }
 
 module.exports = {

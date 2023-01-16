@@ -6,21 +6,27 @@ const testRule = getTestRule({ plugins: ['./rules/duplicated-property-value-in-m
 const { messages } = rule;
 
 const { readFileSync, existsSync } = fs;
-const widthZeroName = 'width-zero';
+const blockWidthZero = 'file-width-zero';
+const elementWidthZero = 'file-width-zero__el';
 
 // eslint-disable-next-line no-undef
 beforeEach(() => {
   // eslint-disable-next-line no-undef
   jest.spyOn(fs, 'readFileSync').mockImplementation((path, options) => {
-    if (path.toString().toLowerCase().includes(`${widthZeroName}.css`)) {
-      return `.${widthZeroName} { width: 0; }`;
+    if (path.toString().toLowerCase().includes(`${blockWidthZero}.css`)) {
+      return `.${blockWidthZero} { width: 0; }`;
+    }
+    if (path.toString().toLowerCase().includes(`${elementWidthZero}.css`)) {
+      return `.${elementWidthZero} { width: 0; }`;
     }
     return readFileSync(path, options);
   });
 
   // eslint-disable-next-line no-undef
   jest.spyOn(fs, 'existsSync').mockImplementation((path) => {
-    if (path.toString().toLowerCase().includes(`${widthZeroName}.css`)) {
+    if (
+      path.toString().toLowerCase().includes(`${blockWidthZero}.css`)
+      || path.toString().toLowerCase().includes(`${elementWidthZero}.css`)) {
       return true;
     }
     return existsSync(path);
@@ -32,19 +38,6 @@ afterEach(() => {
   // eslint-disable-next-line no-undef
   jest.clearAllMocks();
 });
-
-// jest.beforeAll(() => {
-//   // Set up some mocked out file info before each test
-
-//   jest.spyOn(fs, 'readFileSync').mockImplementation((path, options) => {
-//     // eslint-disable-next-line jest/no-conditional-in-test
-//     // if (path.toString().includes(mockPath)) {
-//     //   return JSON.stringify(mockEslintRc);
-//     // }
-
-//     return '42';
-//   });
-// });
 
 testRule({
   ruleName,
@@ -70,32 +63,47 @@ testRule({
   ruleName,
   config: true,
   skipBasicChecks: true,
-  codeFilename: `blocks/_modifier/${widthZeroName}_modifier.css`,
+  codeFilename: 'blocks/page/__element/page_element_owner-file-does-not-exist.css',
   accept: [
     {
-      code: `.${widthZeroName}_modifier { width: 1px; }`,
-      description: `blocks/_modifier/${widthZeroName}_modifier.css`,
-    },
-  ],
-  reject: [
-    {
-      code: `.${widthZeroName}_modifier { width: 0; }`,
-      message: messages.unexpectedDuplicatedPropertyValue('width: 0', `.${widthZeroName}_modifier`, `.${widthZeroName}`),
-      description: `blocks/_modifier/${widthZeroName}_modifier.css`,
+      code: '.page__element_owner-file-does-not-exist { width: 0; }',
+      description: 'blocks/page/__element/page_element_owner-file-does-not-exist.css',
     },
   ],
 });
 
-// testRule({
-//   ruleName,
-//   config: true,
-//   skipBasicChecks: true,
-//   codeFilename: 'other/page.css',
-//   accept: [
-//     {
-//       code: `
-//         .page { width: 0; }
-//         @media (max-width: 800px) { .page { width: 0; } }`,
-//     },
-//   ],
-// });
+testRule({
+  ruleName,
+  config: true,
+  skipBasicChecks: true,
+  codeFilename: 'blocks/file-width-zero/_modifier/file-width-zero_modifier.css',
+  accept: [
+    {
+      code: '.file-width-zero_modifier { width: 1px; }',
+    },
+  ],
+  reject: [
+    {
+      code: '.file-width-zero_modifier { width: 0; }',
+      message: messages.unexpectedDuplicatedPropertyValue('width: 0', '.file-width-zero', '.file-width-zero_modifier'),
+    },
+  ],
+});
+
+testRule({
+  ruleName,
+  config: true,
+  skipBasicChecks: true,
+  codeFilename: 'blocks/file-width-zero/__el/_modifier/file-width-zero__el_modifier.css',
+  accept: [
+    {
+      code: '.file-width-zero__el_modifier { width: 1px; }',
+    },
+  ],
+  reject: [
+    {
+      code: '.file-width-zero__el_modifier { width: 0; }',
+      message: messages.unexpectedDuplicatedPropertyValue('width: 0', '.file-width-zero__el', '.file-width-zero__el_modifier'),
+    },
+  ],
+});
