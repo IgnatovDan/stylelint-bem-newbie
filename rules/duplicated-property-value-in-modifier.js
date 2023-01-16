@@ -44,7 +44,6 @@ function tryReadCssDeclarations(fileName) {
     }
 
     const cssAST = postcss.parse(fileContent);
-    const result = [];
 
     const declarations = {};
     // https://postcss.org/api/
@@ -54,16 +53,12 @@ function tryReadCssDeclarations(fileName) {
         if (!isPartOfMedia(decl)) {
           declarations[decl.prop] = decl;
         } // TODO: else { some complex code, implement later }
-      } catch (e) {
-        /* istanbul ignore next */
-        report({
-          ruleName, result, message: messages.unknownErrorOccurred(e), node: decl,
-        });
-      }
+      } catch { /* add code later for real cases */ }
     });
 
     return declarations;
   } catch (err) {
+    /* istanbul ignore next */
     return undefined;
   }
 }
