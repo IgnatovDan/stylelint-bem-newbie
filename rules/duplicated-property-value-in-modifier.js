@@ -43,6 +43,7 @@ function tryReadCssDeclarations(fileName) {
       return undefined;
     }
 
+    // Looks like https://github.com/uncss/uncss
     const cssAST = postcss.parse(fileContent);
 
     const declarations = new PropertyDeclarationList();
