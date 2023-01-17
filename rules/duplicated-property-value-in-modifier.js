@@ -5,7 +5,7 @@ const postcss = require('postcss');
 const { pluginNamespace } = require('./utils/plugin-namespace');
 const { unknownErrorOccurredRuleMessage } = require('./utils/unknownErrorOccurredRuleMessage');
 const { tryParseBemName } = require('./utils/try-parse-bem-name');
-const { containsPropertyValueDeclaration } = require('./utils/contains-property-value-declaration');
+const { PropertyDeclarationList } = require('./utils/property-declaration-list');
 const { getRuleDisplayText } = require('./utils/get-rule-display-text');
 const { getDeclarationDisplayText } = require('./utils/get-declaration-display-text');
 
@@ -45,13 +45,15 @@ function tryReadCssDeclarations(fileName) {
 
     const cssAST = postcss.parse(fileContent);
 
-    const declarations = {};
+    const declarations = new PropertyDeclarationList();
     // https://postcss.org/api/
     // Root#walkDecls()
     cssAST.walkDecls((decl) => {
       try {
         if (!isPartOfMedia(decl)) {
-          declarations[decl.prop] = decl;
+          declarations.addDeclaration({
+            property: decl.prop, value: decl.value, selector: decl.parent?.selector, parent: decl.parent,
+          });
         } // TODO: else { some complex code, implement later }
       } catch { /* add code later for real cases */ }
     });
@@ -76,19 +78,22 @@ const ruleFunction = () => (root, result) => {
   if (!bemName) {
     return;
   }
-  const modOwnerName = bemName.tryGetModifierOwnerName();
-  const modOwnerFullFileName = tryGetOwnerFullFileName(cssFileDir, modOwnerName);
-  const ownerDeclarations = tryReadCssDeclarations(modOwnerFullFileName);
+  const ownerName = bemName.tryGetModifierOwnerName();
+  const ownerFullFileName = tryGetOwnerFullFileName(cssFileDir, ownerName);
+  const ownerDeclarations = tryReadCssDeclarations(ownerFullFileName);
   if (!ownerDeclarations) {
     return;
   }
-  const modOwnerSelector = `.${modOwnerName}`;
+  const ownerSelector = `.${ownerName}`; // there can be selectors with pseudo, implement later
 
   root.walkDecls((decl) => {
     try {
       if (!isPartOfMedia(decl)) {
-        if (containsPropertyValueDeclaration(ownerDeclarations, decl.prop, decl.value, modOwnerSelector)) {
-          const firstRuleDisplayText = getRuleDisplayText(ownerDeclarations[decl.prop].parent);
+        const prevDecl = ownerDeclarations.findPropertyValueDeclaration(
+          { property: decl.prop, value: decl.value, selector: ownerSelector },
+        );
+        if (prevDecl) {
+          const firstRuleDisplayText = getRuleDisplayText(prevDecl.parent);
           const secondRuleDisplayText = getRuleDisplayText(decl.parent);
           const declDisplayText = getDeclarationDisplayText(decl);
 
@@ -99,7 +104,7 @@ const ruleFunction = () => (root, result) => {
             node: decl,
           });
         }
-      } // TODO: else { some complex code, implement later }
+      } // else { some complex code for media, implement later }
     } catch (e) {
       /* istanbul ignore next */
       report({

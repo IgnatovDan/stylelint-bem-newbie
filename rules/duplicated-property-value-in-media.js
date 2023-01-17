@@ -2,7 +2,7 @@ const path = require('path');
 const stylelint = require('stylelint');
 const { pluginNamespace } = require('./utils/plugin-namespace');
 const { unknownErrorOccurredRuleMessage } = require('./utils/unknownErrorOccurredRuleMessage');
-const { containsPropertyValueDeclaration } = require('./utils/contains-property-value-declaration');
+const { PropertyDeclarationList } = require('./utils/property-declaration-list');
 const { getRuleDisplayText } = require('./utils/get-rule-display-text');
 const { getDeclarationDisplayText } = require('./utils/get-declaration-display-text');
 
@@ -38,13 +38,16 @@ const ruleFunction = () => (root, result) => {
     return;
   }
 
-  const declarations = {};
+  const declarations = new PropertyDeclarationList();
   // https://postcss.org/api/
   // Root#walkDecls()
   root.walkDecls((decl) => {
     try {
-      if (containsPropertyValueDeclaration(declarations, decl.prop, decl.value, decl.parent?.selector)) {
-        const firstRuleDisplayText = getRuleDisplayText(declarations[decl.prop].parent);
+      const prevDecl = declarations.findPropertyValueDeclaration(
+        { property: decl.prop, value: decl.value, selector: decl.parent?.selector },
+      );
+      if (prevDecl) {
+        const firstRuleDisplayText = getRuleDisplayText(prevDecl.parent);
         const secondRuleDisplayText = getRuleDisplayText(decl.parent);
         const declDisplayText = getDeclarationDisplayText(decl);
 
@@ -56,7 +59,9 @@ const ruleFunction = () => (root, result) => {
         });
       }
       if (!isMinMaxMedia(decl)) {
-        declarations[decl.prop] = decl;
+        declarations.addDeclaration({
+          property: decl.prop, value: decl.value, selector: decl.parent?.selector, parent: decl.parent,
+        });
       }
     } catch (e) {
       /* istanbul ignore next */
