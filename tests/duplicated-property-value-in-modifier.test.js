@@ -150,7 +150,7 @@ testRule({
   reject: [
     {
       code: `.${fileBlockWidthZero}_modifier { width: 0; }`,
-      message: messages.unexpectedDuplicatedPropertyValue('width: 0', '.file-width-zero', '.file-width-zero_modifier'),
+      message: messages.unexpectedDuplicatedPropertyValue('width: 0', '.file-width-zero'),
     },
   ],
 });
@@ -168,7 +168,7 @@ testRule({
   reject: [
     {
       code: '.file-width-zero__el_modifier { width: 0; }',
-      message: messages.unexpectedDuplicatedPropertyValue('width: 0', '.file-width-zero__el', '.file-width-zero__el_modifier'),
+      message: messages.unexpectedDuplicatedPropertyValue('width: 0', '.file-width-zero__el'),
     },
   ],
 });

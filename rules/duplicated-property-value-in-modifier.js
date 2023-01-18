@@ -14,9 +14,9 @@ const ruleName = `${pluginNamespace}/duplicated-property-value-in-modifier`;
 
 const messages = ruleMessages(ruleName, {
   unexpectedDuplicatedPropertyValue:
-    (propertyDeclaration, firstContextDisplayText, secondContextDisplayText) =>
+    (propertyDeclaration, firstContextDisplayText) =>
       // eslint-disable-next-line implicit-arrow-linebreak, max-len
-      `Unexpected '${propertyDeclaration}' in '${secondContextDisplayText}' duplicates the same declaration in '${firstContextDisplayText}'`,
+      `Unexpected '${propertyDeclaration}' duplicates value in '${firstContextDisplayText}'`,
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 
@@ -95,13 +95,12 @@ const ruleFunction = () => (root, result) => {
         );
         if (prevDecl) {
           const firstRuleDisplayText = getRuleDisplayText(prevDecl.parent);
-          const secondRuleDisplayText = getRuleDisplayText(decl.parent);
           const declDisplayText = getDeclarationDisplayText(decl);
 
           report({
             ruleName,
             result,
-            message: messages.unexpectedDuplicatedPropertyValue(declDisplayText, firstRuleDisplayText, secondRuleDisplayText),
+            message: messages.unexpectedDuplicatedPropertyValue(declDisplayText, firstRuleDisplayText),
             node: decl,
           });
         }
