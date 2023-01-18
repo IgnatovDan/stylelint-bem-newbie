@@ -4,6 +4,7 @@ const fontFaceDeclarationInFontsFileOnly = require('./rules/font-face-declaratio
 const validateFontFaceDeclarationSrc = require('./rules/font-face-duplicate-src');
 const classNameEqualToFileName = require('./rules/class-name-equal-to-file-name');
 const duplicatedPropertyValueInMedia = require('./rules/duplicated-property-value-in-media');
+const duplicatedPropertyValueInModifier = require('./rules/duplicated-property-value-in-modifier');
 
 const plugins = [
   validateImportFonts,
@@ -12,6 +13,7 @@ const plugins = [
   validateFontFaceDeclarationSrc,
   classNameEqualToFileName,
   duplicatedPropertyValueInMedia,
+  duplicatedPropertyValueInModifier,
 ];
 
 module.exports = plugins;
