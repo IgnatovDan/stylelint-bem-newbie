@@ -1,4 +1,4 @@
-[![bem-newbie tests](https://github.com/IgnatovDan/stylelint-bem-newbie/actions/workflows/run-tests.yml/badge.svg?branch=master)](https://github.com/IgnatovDan/stylelint-bem-newbie/actions/workflows/run-tests.yml)
+[![bem-newbie tests](https://github.com/IgnatovDan/stylelint-bem-newbie/actions/workflows/run-tests.yml/badge.svg)](https://github.com/IgnatovDan/stylelint-bem-newbie/actions/workflows/run-tests.yml)
 [![Publish to NPM](https://github.com/IgnatovDan/stylelint-bem-newbie/actions/workflows/publish-to-npm.yml/badge.svg?event=release)](https://github.com/IgnatovDan/stylelint-bem-newbie/actions/workflows/publish-to-npm.yml)
 
 # Stylelint BEM rules for newbie
