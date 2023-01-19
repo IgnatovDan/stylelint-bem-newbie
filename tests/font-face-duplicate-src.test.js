@@ -2,7 +2,9 @@ const getTestRule = require('jest-preset-stylelint/getTestRule');
 
 const testRule = getTestRule({ plugins: ['./rules/font-face-duplicate-src.js'] });
 
-const { ruleName } = require('../rules/font-face-duplicate-src');
+const { ruleName, rule } = require('../rules/font-face-duplicate-src');
+
+const { messages } = rule;
 
 testRule({
   ruleName,
@@ -33,7 +35,7 @@ testRule({
           src: url("Inter-Regular.woff?v=3.19") format("woff");
           src: url("Inter-Regular.woff2?v=3.19") format("woff2");
         }`,
-      message: `New 'src' value overrides previously assigned value: 'url("Inter-Regular.woff2?v=3.19") format("woff2")' (${ruleName})`,
+      message: messages.unexpectedSrcOverride('url("Inter-Regular.woff2?v=3.19") format("woff2")'),
     },
     {
       code: `
@@ -41,7 +43,7 @@ testRule({
           src: url(Inter-Regular.woff?v=3.19) format("woff");
           src: url(Inter-Regular.woff2?v=3.19) format("woff2");
         }`,
-      message: `New 'src' value overrides previously assigned value: 'url(Inter-Regular.woff2?v=3.19) format("woff2")' (${ruleName})`,
+      message: messages.unexpectedSrcOverride('url(Inter-Regular.woff2?v=3.19) format("woff2")'),
     },
     {
       code: `
@@ -50,7 +52,7 @@ testRule({
           src: url("Inter-Regular.woff2?v=3.19") format("woff2");
           src: url("Inter-Regular.otf") format("otf");
         }`,
-      message: `New 'src' value overrides previously assigned value: 'url("Inter-Regular.woff2?v=3.19") format("woff2")' (${ruleName})`,
+      message: messages.unexpectedSrcOverride('url("Inter-Regular.woff2?v=3.19") format("woff2")'),
     },
   ],
 });

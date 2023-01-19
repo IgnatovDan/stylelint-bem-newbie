@@ -1,10 +1,10 @@
-const path = require('path');
 const stylelint = require('stylelint');
 const { pluginNamespace } = require('./utils/plugin-namespace');
-const { unknownErrorOccurredRuleMessage } = require('./utils/unknownErrorOccurredRuleMessage');
+const { unknownErrorOccurredRuleMessage } = require('./utils/unknown-error-occurred-rule-message');
 const { PropertyDeclarationList } = require('./utils/property-declaration-list');
 const { getRuleDisplayText } = require('./utils/get-rule-display-text');
 const { getDeclarationDisplayText } = require('./utils/get-declaration-display-text');
+const { isProjectBemBlockCssFile } = require('./utils/is-project-bem-block-css-file');
 
 const { report, ruleMessages } = stylelint.utils;
 const ruleName = `${pluginNamespace}/duplicated-property-value-in-media`;
@@ -31,10 +31,8 @@ function isMinMaxMedia(declaration) {
 
 const ruleFunction = () => (root, result) => {
   const cssFullFilePath = root.source?.input?.file;
-  const { dir: fileDir } = path.parse(cssFullFilePath);
 
-  if (!fileDir || !fileDir?.toLowerCase().includes('blocks')) {
-    // TODO: use tryParseBemName to check if it is target file
+  if (!isProjectBemBlockCssFile(cssFullFilePath)) {
     return;
   }
 

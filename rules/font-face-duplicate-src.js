@@ -1,13 +1,13 @@
 const stylelint = require('stylelint');
 const { pluginNamespace } = require('./utils/plugin-namespace');
 
-const { unknownErrorOccurredRuleMessage } = require('./utils/unknownErrorOccurredRuleMessage');
+const { unknownErrorOccurredRuleMessage } = require('./utils/unknown-error-occurred-rule-message');
 
 const { report, ruleMessages } = stylelint.utils;
 const ruleName = `${pluginNamespace}/font-face-duplicate-src`;
 
 const messages = ruleMessages(ruleName, {
-  denyFontFaceDuplicatedSrc: (srcStatement) => `New 'src' value overrides previously assigned value: '${srcStatement}'`,
+  unexpectedSrcOverride: (srcStatement) => `Unexpected 'src' override: '${srcStatement}'`,
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 
@@ -27,7 +27,7 @@ const ruleFunction = () => (root, result) => {
       });
       if (secondSrcNode) {
         report({
-          ruleName, result, message: messages.denyFontFaceDuplicatedSrc(secondSrcNode.value), node: secondSrcNode,
+          ruleName, result, message: messages.unexpectedSrcOverride(secondSrcNode.value), node: secondSrcNode,
         });
       }
     } catch (e) {
