@@ -25,6 +25,7 @@ const ruleFunction = () => (root, result) => {
 
   if (!fileDir || !fileBase
     || fileDir?.includes('styles') || fileBase?.toLowerCase() === 'style.css' || fileBase?.toLowerCase() === 'styles.css') {
+    // TODO: use tryParseBemName to check if it is target file
     return;
   }
 
