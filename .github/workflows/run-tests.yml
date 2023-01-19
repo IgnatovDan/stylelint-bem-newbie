@@ -1,7 +1,7 @@
 name: bem-newbie tests
 on:
   push:
-    master
+    - master
   pull_request:
     paths: 
       - '**'
