@@ -1,7 +1,7 @@
 const stylelint = require('stylelint');
 
-const { parseUriFromImportRuleParams } = require('./utils/parseUriFromImportParams');
-const { unknownErrorOccurredRuleMessage } = require('./utils/unknownErrorOccurredRuleMessage');
+const { parseUriFromImportRuleParams } = require('./utils/parse-uri-from-import-params');
+const { unknownErrorOccurredRuleMessage } = require('./utils/unknown-error-occurred-rule-message');
 const { pluginNamespace } = require('./utils/plugin-namespace');
 
 const { report, ruleMessages } = stylelint.utils;

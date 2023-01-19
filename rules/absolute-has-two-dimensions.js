@@ -1,7 +1,8 @@
-const path = require('path');
 const stylelint = require('stylelint');
 const { pluginNamespace } = require('./utils/plugin-namespace');
-const { unknownErrorOccurredRuleMessage } = require('./utils/unknownErrorOccurredRuleMessage');
+const { unknownErrorOccurredRuleMessage } = require('./utils/unknown-error-occurred-rule-message');
+const { isProjectBemBlockCssFile } = require('./utils/is-project-bem-block-css-file');
+const { isGlobalStylesCssFile } = require('./utils/is-global-styles-css-file');
 
 const { report, ruleMessages } = stylelint.utils;
 const ruleName = `${pluginNamespace}/absolute-has-two-dimensions`;
@@ -11,30 +12,8 @@ const messages = ruleMessages(ruleName, {
   unexpectedNoDimensions: () => 'Unexpected \'absolute\' without dimensions',
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
+
 const possibleDimensions = ['left', 'top', 'right', 'bottom'];
-
-function isGlobalStylesCssFile(fullFilePath) {
-  const { base: fileBase, dir: fileDir } = path.parse(fullFilePath);
-  if (!fileDir || !fileBase) {
-    return false;
-  }
-  return fileDir?.includes('style') && (fileBase?.toLowerCase() === 'style.css' || fileBase?.toLowerCase() === 'styles.css');
-}
-
-function isProjectBemBlockCssFile(fullFilePath) {
-  const { base: fileBase, dir: fileDir } = path.parse(fullFilePath);
-  if (!fileDir || !fileBase) {
-    return false;
-  }
-
-  if (fileDir?.includes(`${path.sep}block`)) {
-    // TODO: use tryParseBemName to check if it is target file
-    // TODO: add new function to utils
-    return true;
-  }
-
-  return false;
-}
 
 const ruleFunction = () => (root, result) => {
   const cssFullFilePath = root.source?.input?.file;

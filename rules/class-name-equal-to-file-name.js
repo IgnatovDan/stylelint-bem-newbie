@@ -3,10 +3,11 @@ const stylelint = require('stylelint');
 const parseSelector = require('stylelint/lib/utils/parseSelector');
 const isKeyframeSelector = require('stylelint/lib/utils/isKeyframeSelector');
 const isStandardSyntaxRule = require('stylelint/lib/utils/isStandardSyntaxRule');
+const { isProjectBemBlockCssFile } = require('./utils/is-project-bem-block-css-file');
 
 const { pluginNamespace } = require('./utils/plugin-namespace');
 
-const { unknownErrorOccurredRuleMessage } = require('./utils/unknownErrorOccurredRuleMessage');
+const { unknownErrorOccurredRuleMessage } = require('./utils/unknown-error-occurred-rule-message');
 
 const { report, ruleMessages } = stylelint.utils;
 const ruleName = `${pluginNamespace}/class-name-equal-to-file-name`;
@@ -21,18 +22,15 @@ const messages = ruleMessages(ruleName, {
 
 const ruleFunction = () => (root, result) => {
   const cssFullFilePath = root.source?.input?.file;
-  const { name: fileName, base: fileBase, dir: fileDir } = path.parse(cssFullFilePath);
+  const { name: fileName, base: fileBase } = path.parse(cssFullFilePath);
 
-  if (!fileDir || !fileBase
-    || fileDir?.includes('styles') || fileBase?.toLowerCase() === 'style.css' || fileBase?.toLowerCase() === 'styles.css') {
-    // TODO: use tryParseBemName to check if it is target file
+  if (!isProjectBemBlockCssFile(cssFullFilePath)) {
     return;
   }
 
   root.walkRules((rule) => {
     try {
-      const { selector } = rule;
-      const { selectors } = rule;
+      const { selector, selectors } = rule;
 
       /* istanbul ignore next */
       if (!isStandardSyntaxRule(rule)) {
