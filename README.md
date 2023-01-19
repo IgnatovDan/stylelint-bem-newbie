@@ -28,7 +28,9 @@ Setup plugin in [stylelint config](http://stylelint.io/user-guide/configuration/
     "bem-newbie/font-face-declaration-in-fonts-file-only": true,
     "bem-newbie/font-face-duplicate-src": true,
     "bem-newbie/class-name-equal-to-file-name": true,
-    "duplicated-property-value-in-media": true,
+    "bem-newbie/duplicated-property-value-in-media": true,
+    "bem-newbie/duplicated-property-value-in-modifier": true,
+    "bem-newbie/absolute-has-two-dimensions": true,    
     ...
   }
 }
@@ -48,6 +50,10 @@ Checks that 'fonts' CSS file is located in the 'vendor' or 'fonts' or 'font' fol
 Checks that 'normalize' CSS file is located in the 'vendor' folder
 1. duplicated-property-value-in-media
 Checks that property values in @media sections don't duplicates previously declared values for the same properties
+1. duplicated-property-value-in-modifier
+Checks that property values in BEM modifier don't declares the same value as its BEM block/element
+1. absolute-has-two-dimensions
+Checks that 'position: absolute' is used with at least two explicit dimensions to declare position
 
 ## Used technologies:
 - ESLint
