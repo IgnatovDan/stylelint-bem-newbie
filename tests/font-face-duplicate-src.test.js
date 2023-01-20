@@ -18,6 +18,7 @@ testRule({
     { code: '@font-face { src: url("Inter-Regular.woff2?v=3.19") format("woff2"), url("Inter-Regular.woff?v=3.19") format("woff");  }' },
     { code: '@font-face { src: url(Inter-Regular.woff2?v=3.19) format("woff2"), url(Inter-Regular.woff?v=3.19) format("woff");  }' },
     { code: '@font-face { SRC: url("Inter-Regular.woff2?v=3.19") format("woff2");}' },
+    { code: '@font-face { /* comment */ src: url("url1") format("woff2");}' },
     {
       code: `
         @font-face { 
