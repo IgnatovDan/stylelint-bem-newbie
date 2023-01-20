@@ -19,6 +19,13 @@ const ruleFunction = () => (root, result) => {
     const importUriParams = rule.params;
     try {
       const uri = parseUriFromImportRuleParams(importUriParams);
+      if (!uri) {
+        if (importUriParams?.match(/normalize.css/i)) {
+          throw new Error('Cannot parse \'import\' statement with \'normalize.css\'');
+        } else {
+          return;
+        }
+      }
 
       if (uri.match('normalize.css')) {
         if (isBlocksStarted) {
@@ -35,6 +42,7 @@ const ruleFunction = () => (root, result) => {
         isBlocksStarted = true;
       }
     } catch (e) {
+      /* istanbul ignore next */
       report({
         ruleName, result, message: messages.unknownErrorOccurred(e), node: rule,
       });

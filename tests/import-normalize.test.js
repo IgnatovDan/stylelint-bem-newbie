@@ -2,7 +2,9 @@ const getTestRule = require('jest-preset-stylelint/getTestRule');
 
 const testRule = getTestRule({ plugins: ['./rules/import-normalize.js'] });
 
-const { ruleName } = require('../rules/import-normalize');
+const { ruleName, rule } = require('../rules/import-normalize');
+
+const { messages } = rule;
 
 testRule({
   ruleName,
@@ -16,11 +18,13 @@ testRule({
         @import url(../vendor/normalize.css);
         @import url(../blocks/page/page.css);`,
     },
+    { code: '@import url(./any-folder/any-file.css);' },
+    { code: '@import ..;' },
   ],
   reject: [
     {
       code: '@import ../vendor/normalize.css;',
-      message: `Unknown error occurred: 'TypeError: Cannot read properties of undefined (reading '0')' (${ruleName})`,
+      message: messages.unknownErrorOccurred('Error: Cannot parse \'import\' statement with \'normalize.css\''),
     },
     {
       code: '@import url(../normalize.css)',
