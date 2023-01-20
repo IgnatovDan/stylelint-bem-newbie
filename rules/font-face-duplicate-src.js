@@ -17,7 +17,7 @@ const ruleFunction = () => (root, result) => {
       let firstSrcNode = null;
       let secondSrcNode = null;
       rule.nodes.forEach((node) => {
-        if (node.prop.toLowerCase() === 'src') {
+        if (node.prop?.toLowerCase() === 'src') {
           if (firstSrcNode === null) {
             firstSrcNode = node;
           } else if (secondSrcNode === null) {
