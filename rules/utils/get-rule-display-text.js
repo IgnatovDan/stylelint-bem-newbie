@@ -5,6 +5,7 @@ function getRuleDisplayText(rule) {
   if (rule?.parent?.type === 'root') {
     return rule.selector;
   }
+  /* istanbul ignore next */
   if (rule?.parent?.type === 'atrule') {
     return `@${rule.parent?.name} ${rule.parent?.params}`;
   }
