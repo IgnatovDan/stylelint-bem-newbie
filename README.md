@@ -47,12 +47,12 @@ Checks that @font-face { src } attribute value is specified one time only
 1. import-fonts  
 Checks that 'fonts' CSS file is located in the 'vendor' or 'fonts' or 'font' folders
 1. import-normalize  
-Checks that 'normalize' CSS file is located in the 'vendor' folder
-1. duplicated-property-value-in-media
+Checks that 'normalize' CSS file is located in the 'vendor' folder and imported at the first place
+1. duplicated-property-value-in-media  
 Checks that property values in @media sections don't duplicates previously declared values for the same properties
-1. duplicated-property-value-in-modifier
+1. duplicated-property-value-in-modifier  
 Checks that property values in BEM modifier don't declares the same value as its BEM block/element
-1. absolute-has-two-dimensions
+1. absolute-has-two-dimensions  
 Checks that 'position: absolute' is used with at least two explicit dimensions to declare position
 
 ## Used technologies:
