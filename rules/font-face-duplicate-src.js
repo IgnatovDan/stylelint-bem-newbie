@@ -7,7 +7,7 @@ const { report, ruleMessages } = stylelint.utils;
 const ruleName = `${pluginNamespace}/font-face-duplicate-src`;
 
 const messages = ruleMessages(ruleName, {
-  unexpectedSrcOverride: (srcStatement) => `Unexpected 'src' override: '${srcStatement}'`,
+  unexpectedSrcOverride: (srcStatement) => `Unexpected secondary 'src': '${srcStatement}'`,
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 

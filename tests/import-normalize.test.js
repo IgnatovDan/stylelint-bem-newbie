@@ -28,17 +28,18 @@ testRule({
     },
     {
       code: '@import url(../normalize.css)',
-      message: `Expected '../normalize.css' to be '../vendor/normalize.css' (${ruleName})`,
+      message: messages.unexpectedNormalizePath('../normalize.css'),
     },
     {
       code: '@import url(../styles/normalize.css)',
-      message: `Expected '../styles/normalize.css' to be '../vendor/normalize.css' (${ruleName})`,
+      message: messages.unexpectedNormalizePath('../styles/normalize.css'),
     },
     {
       code: `
         @import url(../blocks/page/page.css);
         @import url(../vendor/normalize.css);`,
-      message: `Expected '../vendor/normalize.css' to be included before 'blocks' files (${ruleName})`,
+      message: messages.expectNormalizeBeforeBlocksFiles('../vendor/normalize.css'),
+      description: 'blocks before normalize.css',
     },
   ],
 });

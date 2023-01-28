@@ -14,7 +14,7 @@ const ruleName = `${pluginNamespace}/class-name-equal-to-file-name`;
 
 const messages = ruleMessages(ruleName, {
   expectClassNameToBeEqualToFileName:
-    (fileName, className) => `Expected CSS class name '${className}' to be equal to its file name '${fileName}'`,
+    (fileName, className) => `Unexpected '.${className}' class in '${fileName}' file`,
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 

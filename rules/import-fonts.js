@@ -9,7 +9,7 @@ const ruleName = `${pluginNamespace}/import-fonts`;
 
 const messages = ruleMessages(ruleName, {
   expectFontsToBeInVendorOrFontsFolder:
-    (path) => `Expected fonts css file in the 'vendor' or 'fonts' root folder, but found '${path}'`,
+    (path) => `Unexpected fonts in '${path}' (use 'vendor' or 'fonts' root folder)`,
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 
