@@ -31,6 +31,39 @@ class BemName {
     }
     return null;
   }
+
+  getBemFileNameWithoutExt() {
+    const resultArray = [this.block];
+    if (this.el) {
+      resultArray.push('__');
+      resultArray.push(this.el);
+    }
+    if (this.mod) {
+      resultArray.push('_');
+      resultArray.push(this.mod);
+    }
+    if (this.modValue) {
+      resultArray.push('_');
+      resultArray.push(this.modValue);
+    }
+    return resultArray.join('');
+  }
+
+  getBemUri() {
+    const uriPath = [this.block];
+    if (this.el) {
+      uriPath.push('/__');
+      uriPath.push(this.el);
+    }
+    if (this.mod) {
+      uriPath.push('/_');
+      uriPath.push(this.mod);
+    }
+    uriPath.push('/');
+    uriPath.push(...this.getBemFileNameWithoutExt());
+    uriPath.push('.css');
+    return uriPath.join('');
+  }
 }
 
 function tryParseBemName(str) {

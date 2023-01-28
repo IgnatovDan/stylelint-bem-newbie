@@ -1,9 +1,9 @@
 const path = require('path');
 
 function isProjectBemBlockCssFile(fullFilePath) {
-  const { base: fileBase, dir: fileDir } = path.parse(fullFilePath);
+  const { base: fileNameWithExt, dir: fileDir } = path.parse(fullFilePath);
   /* istanbul ignore next */
-  if (!fileDir || !fileBase) {
+  if (!fileDir || !fileNameWithExt) {
     /* istanbul ignore next */
     return false;
   }

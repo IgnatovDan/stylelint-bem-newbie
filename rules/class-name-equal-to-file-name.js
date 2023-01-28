@@ -22,7 +22,7 @@ const messages = ruleMessages(ruleName, {
 
 const ruleFunction = () => (root, result) => {
   const cssFullFilePath = root.source?.input?.file;
-  const { name: fileName, base: fileBase } = path.parse(cssFullFilePath);
+  const { name: fileNameWithoutExt, base: fileNameWithExt } = path.parse(cssFullFilePath);
 
   if (!isProjectBemBlockCssFile(cssFullFilePath)) {
     return;
@@ -48,11 +48,11 @@ const ruleFunction = () => (root, result) => {
         // walkClasses - see https://github.com/postcss/postcss-selector-parser/blob/master/API.md
         selectorTree.walkClasses((classNode) => {
           const cssClassName = classNode.value;
-          if (cssClassName !== fileName) {
+          if (cssClassName !== fileNameWithoutExt) {
             report({
               ruleName,
               result,
-              message: messages.expectClassNameToBeEqualToFileName(fileBase, cssClassName),
+              message: messages.expectClassNameToBeEqualToFileName(fileNameWithExt, cssClassName),
               node: rule,
               word: rule.source?.input?.css,
             });
