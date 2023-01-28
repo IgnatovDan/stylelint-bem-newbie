@@ -13,7 +13,7 @@ const messages = ruleMessages(ruleName, {
   unexpectedDuplicatedPropertyValue:
     (propertyDeclaration, firstContextDisplayText, secondContextDisplayText) =>
       // eslint-disable-next-line implicit-arrow-linebreak, max-len
-      `Unexpected '${propertyDeclaration}' in '${secondContextDisplayText}' duplicates the same declaration in '${firstContextDisplayText}'`,
+      `Unexpected '${propertyDeclaration}' in '${secondContextDisplayText}' duplicates with '${firstContextDisplayText}'`,
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 

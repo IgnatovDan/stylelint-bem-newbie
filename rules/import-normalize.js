@@ -8,8 +8,8 @@ const { report, ruleMessages } = stylelint.utils;
 const ruleName = `${pluginNamespace}/import-normalize`;
 
 const messages = ruleMessages(ruleName, {
-  invalidNormalizePath: (path) => `Expected '${path}' to be '../vendor/normalize.css'`,
-  expectNormalizeBeforeBlocksFiles: (path) => `Expected '${path}' to be included before 'blocks' files`,
+  unexpectedNormalizePath: (path) => `Expected '${path}' to be '../vendor/normalize.css'`,
+  expectNormalizeBeforeBlocksFiles: (path) => `Expected '${path}' to be before 'blocks' files`,
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 
@@ -35,7 +35,7 @@ const ruleFunction = () => (root, result) => {
         }
         if (uri !== '../vendor/normalize.css' && uri !== './../vendor/normalize.css') {
           report({
-            ruleName, result, message: messages.invalidNormalizePath(uri), node: rule, word: uri,
+            ruleName, result, message: messages.unexpectedNormalizePath(uri), node: rule, word: uri,
           });
         }
       } else if (uri.match('blocks')) {

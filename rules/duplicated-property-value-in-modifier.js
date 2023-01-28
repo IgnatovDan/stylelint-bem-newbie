@@ -15,9 +15,7 @@ const ruleName = `${pluginNamespace}/duplicated-property-value-in-modifier`;
 
 const messages = ruleMessages(ruleName, {
   unexpectedDuplicatedPropertyValue:
-    (propertyDeclaration, firstContextDisplayText) =>
-      // eslint-disable-next-line implicit-arrow-linebreak, max-len
-      `Unexpected '${propertyDeclaration}' duplicates value in '${firstContextDisplayText}'`,
+    (propertyDeclaration, firstContextDisplayText) => `Unexpected '${propertyDeclaration}' duplicates with '${firstContextDisplayText}'`,
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 

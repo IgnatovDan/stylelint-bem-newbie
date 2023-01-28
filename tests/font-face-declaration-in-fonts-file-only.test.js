@@ -55,7 +55,8 @@ testRule({
   reject: [
     {
       code: '@font-face {}',
-      message: `@font-face declaration is expected in a fonts css file only, but was found in 'any-other.css' (${ruleName})`,
+      message: messages.unexpectedFontFaceInNonFontsFile('any-other.css'),
+      description: '@font-face {}, any-other.css',
     },
   ],
 });
@@ -68,7 +69,8 @@ testRule({
   reject: [
     {
       code: '@font-face {}',
-      message: `@font-face declaration is expected in a fonts css file only, but was found in 'any-other.css' (${ruleName})`,
+      message: messages.unexpectedFontFaceInNonFontsFile('any-other.css'),
+      description: '@font-face {}, blocks/any-other.css',
     },
   ],
 });
@@ -81,8 +83,7 @@ testRule({
   reject: [
     {
       code: '@font-face {}',
-      message:
-      messages.unexpectedFontFaceInBlocksFolder(`..${path.sep}blocks${path.sep}fonts.css`),
+      message: messages.unexpectedFontFaceInBlocksFolder(`..${path.sep}blocks${path.sep}fonts.css`),
       description: '@font-face {}, blocks/fonts.css',
     },
   ],

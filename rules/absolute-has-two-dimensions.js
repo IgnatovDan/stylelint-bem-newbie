@@ -8,7 +8,7 @@ const { report, ruleMessages } = stylelint.utils;
 const ruleName = `${pluginNamespace}/absolute-has-two-dimensions`;
 
 const messages = ruleMessages(ruleName, {
-  unexpectedOneDimension: (dimension) => `Unexpected 'absolute' with only '${dimension}' dimension`,
+  unexpectedOneDimension: (dimension) => `Unexpected 'absolute' with only '${dimension}'`,
   unexpectedNoDimensions: () => 'Unexpected \'absolute\' without dimensions',
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });

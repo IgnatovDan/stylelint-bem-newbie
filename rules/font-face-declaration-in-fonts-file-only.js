@@ -9,10 +9,10 @@ const ruleName = `${pluginNamespace}/font-face-declaration-in-fonts-file-only`;
 const currentModuleFolder = path.dirname(module.parent.filename);
 
 const messages = ruleMessages(ruleName, {
-  expectFontFaceDeclarationInFontsFile:
-    (filePath) => `@font-face declaration is expected in a fonts css file only, but was found in '${filePath}'`,
+  unexpectedFontFaceInNonFontsFile:
+    (filePath) => `Unexpected '${filePath}' instead of fonts.css/inter.css`,
   unexpectedFontFaceInBlocksFolder:
-    (filePath) => `Unexpected @font-face in 'blocks': '${filePath}'`,
+    (filePath) => `Unexpected '${filePath}' out of the 'blocks' folder`,
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 
@@ -25,7 +25,7 @@ const ruleFunction = () => (root, result) => {
       if (!cssRelativeFilePath.match(/inter/i) && !cssRelativeFilePath.match(/font/i)) {
         const fileName = path.basename(cssFullFilePath);
         report({
-          ruleName, result, message: messages.expectFontFaceDeclarationInFontsFile(fileName), node: rule, word: rule.source?.input?.css,
+          ruleName, result, message: messages.unexpectedFontFaceInNonFontsFile(fileName), node: rule, word: rule.source?.input?.css,
         });
       } else if (cssRelativeFilePath.includes(`${path.sep}block`)) {
         report({
