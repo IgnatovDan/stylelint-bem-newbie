@@ -55,6 +55,9 @@ Checks that property values in @media sections don't duplicates previously decla
 Checks that property values in BEM modifier don't declares the same value as its BEM block/element
 1. absolute-has-two-dimensions  
 Checks that 'position: absolute' is used with at least two explicit dimensions to declare position
+1. import-bem-path  
+Checks that BEM folders/files are organized as [Nested](https://ru.bem.info/methodology/filestructure/#nested) BEM structure
+
 
 ## Used technologies:
 - ESLint
