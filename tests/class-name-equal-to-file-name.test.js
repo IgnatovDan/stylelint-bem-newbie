@@ -74,7 +74,7 @@ testRule({
   reject: [
     {
       code: '.root {}',
-      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root'),
+      message: messages.expectClassNameToBeEqualToFileName('root'),
       description: 'blocks/page/page.css + .root {}',
     },
   ],
@@ -88,7 +88,7 @@ testRule({
   reject: [
     {
       code: '.root {}',
-      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root'),
+      message: messages.expectClassNameToBeEqualToFileName('root'),
       description: 'blocks/page.css + .root {}',
     },
   ],
@@ -102,7 +102,7 @@ testRule({
   reject: [
     {
       code: '@media (max-width: 800px) { .root {} }',
-      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root'),
+      message: messages.expectClassNameToBeEqualToFileName('root'),
       description: 'blocks/page.css + @media (max-width: 800px) { .root {} }',
     },
   ],
@@ -116,7 +116,7 @@ testRule({
   reject: [
     {
       code: '.root::hover {}',
-      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root'),
+      message: messages.expectClassNameToBeEqualToFileName('root'),
       description: 'blocks/page/page.css + .root::hover {}',
     },
   ],
@@ -130,7 +130,7 @@ testRule({
   reject: [
     {
       code: '@media (max-width: 800px) { .root::hover {} }',
-      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root'),
+      message: messages.expectClassNameToBeEqualToFileName('root'),
       description: 'blocks/page/page.css + @media (max-width: 800px) { .root::hover {} }',
     },
   ],
@@ -144,7 +144,7 @@ testRule({
   reject: [
     {
       code: '.root::first-of-type {}',
-      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root'),
+      message: messages.expectClassNameToBeEqualToFileName('root'),
       description: 'blocks/page/page.css + .root::first-of-type {}',
     },
   ],
@@ -158,7 +158,7 @@ testRule({
   reject: [
     {
       code: '.page .root {}',
-      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root'),
+      message: messages.expectClassNameToBeEqualToFileName('root'),
       description: 'blocks/page/page.css + .page .root {}',
     },
   ],
@@ -172,7 +172,7 @@ testRule({
   reject: [
     {
       code: '@media (max-width: 800px) { .page .root {} }',
-      message: messages.expectClassNameToBeEqualToFileName('page.css', 'root'),
+      message: messages.expectClassNameToBeEqualToFileName('root'),
       description: 'blocks/page/page.css + @media (max-width: 800px) { .page .root {} }',
     },
   ],
