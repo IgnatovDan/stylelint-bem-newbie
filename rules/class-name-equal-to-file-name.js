@@ -14,7 +14,7 @@ const ruleName = `${pluginNamespace}/class-name-equal-to-file-name`;
 
 const messages = ruleMessages(ruleName, {
   expectClassNameToBeEqualToFileName:
-    (fileName, className) => `Unexpected '.${className}' class in '${fileName}' file`,
+    (className) => `Unexpected '.${className}' class in file`,
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 
@@ -22,7 +22,7 @@ const messages = ruleMessages(ruleName, {
 
 const ruleFunction = () => (root, result) => {
   const cssFullFilePath = root.source?.input?.file;
-  const { name: fileNameWithoutExt, base: fileNameWithExt } = path.parse(cssFullFilePath);
+  const { name: fileNameWithoutExt } = path.parse(cssFullFilePath);
 
   if (!isProjectBemBlockCssFile(cssFullFilePath)) {
     return;
@@ -52,7 +52,7 @@ const ruleFunction = () => (root, result) => {
             report({
               ruleName,
               result,
-              message: messages.expectClassNameToBeEqualToFileName(fileNameWithExt, cssClassName),
+              message: messages.expectClassNameToBeEqualToFileName(cssClassName),
               node: rule,
               word: rule.source?.input?.css,
             });
