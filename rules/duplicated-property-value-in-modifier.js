@@ -67,18 +67,18 @@ function tryReadCssDeclarations(fileName) {
 
 const ruleFunction = () => (root, result) => {
   const cssFullFilePath = root.source?.input?.file;
-  const { name: cssFileName, dir: cssFileDir } = path.parse(cssFullFilePath);
+  const { name: fileNameWithoutExt, dir: fileDir } = path.parse(cssFullFilePath);
 
   if (!isProjectBemBlockCssFile(cssFullFilePath)) {
     return;
   }
 
-  const bemName = tryParseBemName(cssFileName);
+  const bemName = tryParseBemName(fileNameWithoutExt);
   if (!bemName) {
     return;
   }
   const ownerName = bemName.tryGetModifierOwnerName();
-  const ownerFullFileName = tryGetOwnerFullFileName(cssFileDir, ownerName);
+  const ownerFullFileName = tryGetOwnerFullFileName(fileDir, ownerName);
   const ownerDeclarations = tryReadCssDeclarations(ownerFullFileName);
   if (!ownerDeclarations) {
     return;

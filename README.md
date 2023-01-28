@@ -30,7 +30,8 @@ Setup plugin in [stylelint config](http://stylelint.io/user-guide/configuration/
     "bem-newbie/class-name-equal-to-file-name": true,
     "bem-newbie/duplicated-property-value-in-media": true,
     "bem-newbie/duplicated-property-value-in-modifier": true,
-    "bem-newbie/absolute-has-two-dimensions": true,    
+    "bem-newbie/absolute-has-two-dimensions": true,
+    "bem-newbie/import-bem-path": true,
     ...
   }
 }
