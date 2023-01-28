@@ -8,7 +8,6 @@ const duplicatedPropertyValueInModifier = require('./rules/duplicated-property-v
 const absoluteHasTwoDimensions = require('./rules/absolute-has-two-dimensions');
 const importBemPath = require('./rules/import-bem-path');
 
-
 const plugins = [
   validateImportFonts,
   validateImportNormalize,
