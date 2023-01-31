@@ -12,6 +12,8 @@ testRule({
   skipBasicChecks: true,
   accept: [
     { code: '@import url(../vendor/normalize.css);' },
+    { code: '@import url(../vendor/styles/normalize.css);' },
+    { code: '@import url(../vendor/style/normalize.css);' },
     { code: '@import \'../vendor/normalize.css\';' },
     {
       code: `
