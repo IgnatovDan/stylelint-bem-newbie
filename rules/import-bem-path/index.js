@@ -1,10 +1,10 @@
 const path = require('path');
 const stylelint = require('stylelint');
 
-const { parseUriFromImportRuleParams } = require('../utils/parse-uri-from-import-params');
-const { unknownErrorOccurredRuleMessage } = require('../utils/unknown-error-occurred-rule-message');
-const { pluginNamespace } = require('../utils/plugin-namespace');
-const { tryParseBemName } = require('../utils/try-parse-bem-name');
+const { parseUriFromImportRuleParams } = require('../../utils/parse-uri-from-import-params');
+const { unknownErrorOccurredRuleMessage } = require('../../utils/unknown-error-occurred-rule-message');
+const { pluginNamespace } = require('../../utils/plugin-namespace');
+const { tryParseBemName } = require('../../utils/try-parse-bem-name');
 
 const { report, ruleMessages } = stylelint.utils;
 const ruleName = `${pluginNamespace}/import-bem-path`;
