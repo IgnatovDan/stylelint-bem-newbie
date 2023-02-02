@@ -1,8 +1,8 @@
 const getTestRule = require('jest-preset-stylelint/getTestRule');
 const fs = require('fs');
-const { ruleName, rule } = require('../rules/duplicated-property-value-in-modifier');
+const { ruleName, rule } = require('../duplicated-property-value-in-modifier');
 
-const testRule = getTestRule({ plugins: ['./rules/duplicated-property-value-in-modifier.js'] });
+const testRule = getTestRule({ plugins: ['./rules/duplicated-property-value-in-modifier/duplicated-property-value-in-modifier.js'] });
 const { messages } = rule;
 
 const { readFileSync, existsSync } = fs;
