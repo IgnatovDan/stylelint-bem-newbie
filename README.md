@@ -41,6 +41,7 @@ Setup plugin in [stylelint config](http://stylelint.io/user-guide/configuration/
 
 - [`bem-newbie/class-name-equal-to-file-name`](./src/rules/class-name-equal-to-file-name/README.md): Require CSS class names in a file to be equal to the file name.
 - [`bem-newbie/font-face-duplicate-src`](./src/rules/font-face-duplicate-src/README.md): Require @font-face { src } attribute value to be specified once in each @font-face statement.
+- [`bem-newbie/font-face-declaration-in-fonts-file-only`](./src/rules/font-face-declaration-in-fonts-file-only/README.md): Disallow @font-face statements in CSS files in the 'blocks' folder.
 - [`bem-newbie/import-fonts`](./src/rules/import-fonts/README.md): Require 'fonts' CSS file to be located in the 'vendor' or 'fonts' or 'font' folders (and not in the 'blocks' folder).
 - [`bem-newbie/import-normalize`](./src/rules/import-normalize/README.md): Require 'normalize' CSS file to be located in the 'vendor' folder and to be before other @import statements.
 - [`bem-newbie/duplicated-property-value-in-media`](./src/rules/duplicated-property-value-in-media/README.md): Require property values in @media sections to not duplicate values for the same properties in previous @media sections.
