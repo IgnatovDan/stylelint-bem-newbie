@@ -3,11 +3,11 @@ const stylelint = require('stylelint');
 const parseSelector = require('stylelint/lib/utils/parseSelector');
 const isKeyframeSelector = require('stylelint/lib/utils/isKeyframeSelector');
 const isStandardSyntaxRule = require('stylelint/lib/utils/isStandardSyntaxRule');
-const { isProjectBemBlockCssFile } = require('./utils/is-project-bem-block-css-file');
+const { isProjectBemBlockCssFile } = require('../utils/is-project-bem-block-css-file');
 
-const { pluginNamespace } = require('./utils/plugin-namespace');
+const { pluginNamespace } = require('../utils/plugin-namespace');
 
-const { unknownErrorOccurredRuleMessage } = require('./utils/unknown-error-occurred-rule-message');
+const { unknownErrorOccurredRuleMessage } = require('../utils/unknown-error-occurred-rule-message');
 
 const { report, ruleMessages } = stylelint.utils;
 const ruleName = `${pluginNamespace}/class-name-equal-to-file-name`;
