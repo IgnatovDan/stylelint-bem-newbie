@@ -1,8 +1,8 @@
 const getTestRule = require('jest-preset-stylelint/getTestRule');
 
-const testRule = getTestRule({ plugins: ['./rules/font-face-duplicate-src.js'] });
+const testRule = getTestRule({ plugins: ['./rules/font-face-duplicate-src'] });
 
-const { ruleName, rule } = require('../rules/font-face-duplicate-src');
+const { ruleName, rule } = require('..');
 
 const { messages } = rule;
 
