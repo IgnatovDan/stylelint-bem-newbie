@@ -1,8 +1,8 @@
 const getTestRule = require('jest-preset-stylelint/getTestRule');
 
-const testRule = getTestRule({ plugins: ['./rules/import-bem-path.js'] });
+const testRule = getTestRule({ plugins: ['./rules/import-bem-path'] });
 
-const { ruleName, rule } = require('../rules/import-bem-path');
+const { ruleName, rule } = require('..');
 
 const { messages } = rule;
 
