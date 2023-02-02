@@ -1,8 +1,8 @@
 const stylelint = require('stylelint');
-const { pluginNamespace } = require('../utils/plugin-namespace');
-const { unknownErrorOccurredRuleMessage } = require('../utils/unknown-error-occurred-rule-message');
-const { isProjectBemBlockCssFile } = require('../utils/is-project-bem-block-css-file');
-const { isGlobalStylesCssFile } = require('../utils/is-global-styles-css-file');
+const { pluginNamespace } = require('../../utils/plugin-namespace');
+const { unknownErrorOccurredRuleMessage } = require('../../utils/unknown-error-occurred-rule-message');
+const { isProjectBemBlockCssFile } = require('../../utils/is-project-bem-block-css-file');
+const { isGlobalStylesCssFile } = require('../../utils/is-global-styles-css-file');
 
 const { report, ruleMessages } = stylelint.utils;
 const ruleName = `${pluginNamespace}/absolute-has-two-dimensions`;

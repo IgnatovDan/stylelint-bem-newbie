@@ -1,8 +1,8 @@
 const path = require('path');
 const stylelint = require('stylelint');
-const { pluginNamespace } = require('../utils/plugin-namespace');
+const { pluginNamespace } = require('../../utils/plugin-namespace');
 
-const { unknownErrorOccurredRuleMessage } = require('../utils/unknown-error-occurred-rule-message');
+const { unknownErrorOccurredRuleMessage } = require('../../utils/unknown-error-occurred-rule-message');
 
 const { report, ruleMessages } = stylelint.utils;
 const ruleName = `${pluginNamespace}/font-face-declaration-in-fonts-file-only`;
