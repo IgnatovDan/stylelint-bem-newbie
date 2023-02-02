@@ -1,8 +1,8 @@
 const getTestRule = require('jest-preset-stylelint/getTestRule');
 
-const testRule = getTestRule({ plugins: ['./rules/import-normalize.js'] });
+const testRule = getTestRule({ plugins: ['./rules/import-normalize'] });
 
-const { ruleName, rule } = require('../rules/import-normalize');
+const { ruleName, rule } = require('..');
 
 const { messages } = rule;
 

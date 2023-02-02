@@ -1,8 +1,8 @@
 const getTestRule = require('jest-preset-stylelint/getTestRule');
 
-const testRule = getTestRule({ plugins: ['./rules/import-fonts.js'] });
+const testRule = getTestRule({ plugins: ['./rules/import-fonts'] });
 
-const { ruleName, rule } = require('../rules/import-fonts');
+const { ruleName, rule } = require('..');
 
 const { messages } = rule;
 
