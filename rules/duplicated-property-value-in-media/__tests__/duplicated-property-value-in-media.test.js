@@ -1,7 +1,7 @@
 const getTestRule = require('jest-preset-stylelint/getTestRule');
-const { ruleName, rule } = require('../rules/duplicated-property-value-in-media');
+const { ruleName, rule } = require('../duplicated-property-value-in-media');
 
-const testRule = getTestRule({ plugins: ['./rules/duplicated-property-value-in-media.js'] });
+const testRule = getTestRule({ plugins: ['./rules/duplicated-property-value-in-media/duplicated-property-value-in-media.js'] });
 const { messages } = rule;
 
 testRule({
