@@ -1,6 +1,6 @@
 # bem-newbie/absolute-has-two-dimensions
 
-Disallow a missing dimensions to declare position when `position: absolute` is used:
+Disallow missing dimensions when `position: absolute` is used:
 
 ```css
 a { position: absolute; top: 0; left: 0;}
