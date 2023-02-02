@@ -5,7 +5,7 @@ const validateFontFaceDeclarationSrc = require('./rules/font-face-duplicate-src'
 const classNameEqualToFileName = require('./rules/class-name-equal-to-file-name');
 const duplicatedPropertyValueInMedia = require('./rules/duplicated-property-value-in-media');
 const duplicatedPropertyValueInModifier = require('./rules/duplicated-property-value-in-modifier');
-const absoluteHasTwoDimensions = require('./rules/absolute-has-two-dimensions');
+const absoluteHasTwoDimensions = require('./rules/absolute-has-two-dimensions/absolute-has-two-dimensions');
 const importBemPath = require('./rules/import-bem-path');
 
 const plugins = [

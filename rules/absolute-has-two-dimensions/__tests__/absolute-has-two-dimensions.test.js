@@ -1,7 +1,7 @@
 const getTestRule = require('jest-preset-stylelint/getTestRule');
-const { ruleName, rule } = require('../rules/absolute-has-two-dimensions');
+const { ruleName, rule } = require('../absolute-has-two-dimensions');
 
-const testRule = getTestRule({ plugins: ['./rules/absolute-has-two-dimensions.js'] });
+const testRule = getTestRule({ plugins: ['./rules/absolute-has-two-dimensions/absolute-has-two-dimensions.js'] });
 const { messages } = rule;
 
 testRule({
