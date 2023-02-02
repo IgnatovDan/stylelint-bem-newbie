@@ -1,8 +1,8 @@
 const getTestRule = require('jest-preset-stylelint/getTestRule');
 
-const testRule = getTestRule({ plugins: ['./rules/class-name-equal-to-file-name.js'] });
+const testRule = getTestRule({ plugins: ['./rules/class-name-equal-to-file-name'] });
 
-const { ruleName, rule } = require('../rules/class-name-equal-to-file-name');
+const { ruleName, rule } = require('..');
 
 const { messages } = rule;
 

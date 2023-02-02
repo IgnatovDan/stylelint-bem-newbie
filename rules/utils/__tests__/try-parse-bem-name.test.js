@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const { tryParseBemName } = require('../rules/utils/try-parse-bem-name');
+const { tryParseBemName } = require('../try-parse-bem-name');
 
 //
 // Tests generator :
