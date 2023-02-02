@@ -27,3 +27,7 @@ The following patterns are *not* considered problems:
 ```css
 @import url(../vendor/fonts.css);
 ```
+
+```css
+@import url(../fonts/font.css);
+```
