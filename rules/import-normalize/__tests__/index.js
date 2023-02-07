@@ -40,8 +40,15 @@ testRule({
       code: `
         @import url(../blocks/page/page.css);
         @import url(../vendor/normalize.css);`,
-      message: messages.expectNormalizeBeforeBlocksFiles('../vendor/normalize.css'),
-      description: 'blocks before normalize.css',
+      message: messages.expectNormalizeFirstImportedFile('../vendor/normalize.css'),
+      description: 'block before normalize.css',
+    },
+    {
+      code: `
+        @import url(../fonts/fonts.css);
+        @import url(../vendor/normalize.css);`,
+      message: messages.expectNormalizeFirstImportedFile('../vendor/normalize.css'),
+      description: 'font before normalize.css',
     },
   ],
 });
