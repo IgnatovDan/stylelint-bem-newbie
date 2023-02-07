@@ -9,12 +9,12 @@ const ruleName = `${pluginNamespace}/import-normalize`;
 
 const messages = ruleMessages(ruleName, {
   unexpectedNormalizePath: (path) => `Unexpected '${path}' to normalize.css, expected '../vendor/'`,
-  expectNormalizeBeforeBlocksFiles: (path) => `Expected '${path}' to be before 'blocks' files`,
+  expectNormalizeFirstImportedFile: (path) => `Expected '${path}' to be the first imported file`,
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 
 const ruleFunction = () => (root, result) => {
-  let isBlocksStarted = false;
+  let isFirstImport = true;
   root.walkAtRules('import', (rule) => {
     const importUriParams = rule.params;
     try {
@@ -27,10 +27,10 @@ const ruleFunction = () => (root, result) => {
         }
       }
 
-      if (uri.match('normalize.css')) {
-        if (isBlocksStarted) {
+      if (uri?.match(/normalize.css/i)) {
+        if (!isFirstImport) {
           report({
-            ruleName, result, message: messages.expectNormalizeBeforeBlocksFiles(uri), node: rule, word: uri,
+            ruleName, result, message: messages.expectNormalizeFirstImportedFile(uri), node: rule, word: uri,
           });
         }
         if (!uri.startsWith('../vendor/') && !uri.startsWith('./../vendor/')) {
@@ -38,9 +38,8 @@ const ruleFunction = () => (root, result) => {
             ruleName, result, message: messages.unexpectedNormalizePath(uri), node: rule, word: uri,
           });
         }
-      } else if (uri.match('blocks')) {
-        isBlocksStarted = true;
       }
+      isFirstImport = false;
     } catch (e) {
       /* istanbul ignore next */
       report({
