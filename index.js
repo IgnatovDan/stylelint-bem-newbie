@@ -6,6 +6,8 @@ const classNameEqualToFileName = require('./rules/class-name-equal-to-file-name'
 const duplicatedPropertyValueInMedia = require('./rules/duplicated-property-value-in-media');
 const duplicatedPropertyValueInModifier = require('./rules/duplicated-property-value-in-modifier');
 const absoluteHasTwoDimensions = require('./rules/absolute-has-two-dimensions');
+const animationExplicitTimingFunction = require('./rules/animation-explicit-timing-function');
+
 const importBemPath = require('./rules/import-bem-path');
 
 const plugins = [
@@ -17,6 +19,7 @@ const plugins = [
   duplicatedPropertyValueInMedia,
   duplicatedPropertyValueInModifier,
   absoluteHasTwoDimensions,
+  animationExplicitTimingFunction,
   importBemPath,
 ];
 
