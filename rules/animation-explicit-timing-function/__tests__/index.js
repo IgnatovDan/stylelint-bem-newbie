@@ -11,6 +11,7 @@ testRule({
   codeFilename: 'blocks/page.css',
   accept: [
     { code: '.page { animation: rotation 5s infinite linear; }' },
+    { code: '.page { animation: rotation 5s infinite ease-in; }' },
     { code: '.page { animation-name: rotation; animation-duration: 5s; animation-timing-function: linear; }' },
   ],
   reject: [

@@ -12,7 +12,7 @@ const messages = ruleMessages(ruleName, {
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 
-const TIMING_FUNCTIONS = ['linear'/* 'ease', 'ease-in', 'ease-out', 'ease-in-out', 'step-start', 'step-end' */];
+const TIMING_FUNCTIONS = ['linear', 'ease', 'ease-in', 'ease-out', 'ease-in-out', 'step-start', 'step-end'];
 
 const ruleFunction = () => (root, result) => {
   const cssFullFilePath = root.source?.input?.file;
