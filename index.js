@@ -7,8 +7,8 @@ const duplicatedPropertyValueInMedia = require('./rules/duplicated-property-valu
 const duplicatedPropertyValueInModifier = require('./rules/duplicated-property-value-in-modifier');
 const absoluteHasTwoDimensions = require('./rules/absolute-has-two-dimensions');
 const animationExplicitTimingFunction = require('./rules/animation-explicit-timing-function');
-
 const importBemPath = require('./rules/import-bem-path');
+const fontWeightFileName = require('./rules/font-weight-file-name');
 
 const plugins = [
   validateImportFonts,
@@ -21,6 +21,7 @@ const plugins = [
   absoluteHasTwoDimensions,
   animationExplicitTimingFunction,
   importBemPath,
+  fontWeightFileName,
 ];
 
 module.exports = plugins;
