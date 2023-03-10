@@ -17,6 +17,11 @@ const messages = ruleMessages(ruleName, {
   unknownErrorOccurred: unknownErrorOccurredRuleMessage,
 });
 
+function isNoMedia(declaration) {
+  const atrule = declaration.parent?.parent;
+  return (atrule?.type !== 'atrule' || atrule?.name !== 'media');
+}
+
 function isMinMaxMedia(declaration) {
   const atrule = declaration.parent?.parent;
   if (atrule?.type === 'atrule' && atrule?.name === 'media') {
@@ -37,23 +42,29 @@ const ruleFunction = () => (root, result) => {
   }
 
   const declarations = new PropertyDeclarationList();
+  const noMediaDeclarations = new PropertyDeclarationList();
   // https://postcss.org/api/
   // Root#walkDecls()
   root.walkDecls((decl) => {
     try {
-      const prevDecl = declarations.findPropertyValueDeclaration(
-        { property: decl.prop, value: decl.value, selector: decl.parent?.selector },
-      );
+      const propertyValueDeclaration = { property: decl.prop, value: decl.value, selector: decl.parent?.selector };
+      const prevDecl = (isMinMaxMedia(decl) ? noMediaDeclarations : declarations).findPropertyValueDeclaration(propertyValueDeclaration);
       if (prevDecl) {
         const firstRuleDisplayText = getRuleDisplayText(prevDecl.parent);
         const secondRuleDisplayText = getRuleDisplayText(decl.parent);
         const declDisplayText = getDeclarationDisplayText(decl);
 
+        // complex 'media' ranges are not supported
         report({
           ruleName,
           result,
           message: messages.unexpectedDuplicatedPropertyValue(declDisplayText, firstRuleDisplayText, secondRuleDisplayText),
           node: decl,
+        });
+      }
+      if (isNoMedia(decl)) {
+        noMediaDeclarations.addDeclaration({
+          property: decl.prop, value: decl.value, selector: decl.parent?.selector, parent: decl.parent,
         });
       }
       if (!isMinMaxMedia(decl)) {
