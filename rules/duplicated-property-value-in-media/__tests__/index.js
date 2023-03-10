@@ -68,6 +68,8 @@ testRule({
         @media (min-width: 600px) { .page { width: 1; } }
         `,
     },
+    //
+    // Not supported: mixed media ranges will show 'false positive' errors
     // {
     //   code: `
     //     .page { width: 1px; }
