@@ -48,6 +48,35 @@ testRule({
         @media (min-width: 200px) and (max-width: 400px) { .page { width: 0; } }
         @media (min-width: 400px) and (max-width: 600px) { .page { width: 0; } }`,
     },
+    {
+      code: `
+        .page { width: 1px; }
+        @media (max-width: 400px) { .page { width: 0; } }
+        @media (min-width: 400px) and (max-width: 600px) { .page { width: 0; } }`,
+    },
+    {
+      code: `
+        .page { width: 1px; }
+        @media (min-width: 400px) and (max-width: 600px) { .page { width: 0; } }
+        @media (min-width: 600px) { .page { width: 0; } }
+        `,
+    },
+    {
+      code: `
+        .page { width: 1px; }
+        @media (min-width: 400px) and (max-width: 600px) { .page { width: 0; } }
+        @media (min-width: 600px) { .page { width: 1; } }
+        `,
+    },
+    //
+    // Not supported: mixed media ranges will show 'false positive' errors
+    // {
+    //   code: `
+    //     .page { width: 1px; }
+    //     @media (min-width: 1200px) { .page { width: 0; } }
+    //     @media (max-width: 400px) { .page { width: 0; } }
+    //     `,
+    // },
   ],
   reject: [
     {
@@ -55,6 +84,12 @@ testRule({
         .page { width: 0; }
         @media (max-width: 800px) { .page { width: 0; } }`,
       message: messages.unexpectedDuplicatedPropertyValue('width: 0', '.page', '@media (max-width: 800px)'),
+    },
+    {
+      code: `
+        .page { width: 0; }
+        @media (min-width: 800px) { .page { width: 0; } }`,
+      message: messages.unexpectedDuplicatedPropertyValue('width: 0', '.page', '@media (min-width: 800px)'),
     },
     {
       code: `
@@ -68,6 +103,13 @@ testRule({
         @media (max-width: 200px) { .page { width: 1px; } }
         @media (max-width: 400px) { .page { width: 1px; } }`,
       message: messages.unexpectedDuplicatedPropertyValue('width: 1px', '@media (max-width: 200px)', '@media (max-width: 400px)'),
+    },
+    {
+      code: `
+        .page { width: 0; }
+        @media (min-width: 800px) { .page { width: 1px; } }
+        @media (min-width: 1200px) { .page { width: 1px; } }`,
+      message: messages.unexpectedDuplicatedPropertyValue('width: 1px', '@media (min-width: 800px)', '@media (min-width: 1200px)'),
     },
     {
       code: `
