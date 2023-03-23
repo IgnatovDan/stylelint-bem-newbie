@@ -23,12 +23,15 @@ Setup plugin in [stylelint config](http://stylelint.io/user-guide/configuration/
     "stylelint-bem-newbie"
   ],
   "rules": {
-    "bem-newbie/absolute-has-two-dimensions": true,
+    "bem-newbie/absolute-has-two-dimensions": [true, { severity: 'warning' }],
+    "bem-newbie/animation-explicit-timing-function": true,
     "bem-newbie/class-name-equal-to-file-name": true,
+    "bem-newbie/display-deny-inline": true,    
     "bem-newbie/duplicated-property-value-in-media": true,
     "bem-newbie/duplicated-property-value-in-modifier": true,
     "bem-newbie/font-face-declaration-in-fonts-file-only": true,
     "bem-newbie/font-face-duplicate-src": true,
+    "bem-newbie/font-weight-file-name": true,
     "bem-newbie/import-bem-path": true,
     "bem-newbie/import-fonts": true,
     "bem-newbie/import-normalize": true,
@@ -42,6 +45,7 @@ Setup plugin in [stylelint config](http://stylelint.io/user-guide/configuration/
 - [`bem-newbie/absolute-has-two-dimensions`](./rules/absolute-has-two-dimensions/README.md): Require `position: absolute` to be used with at least two explicit dimensions to declare position.
 - [`bem-newbie/animation-explicit-timing-function`](./rules/animation-explicit-timing-function/README.md): Require `animation` or `animation-name` to be used with 'animation-timing-function'.
 - [`bem-newbie/class-name-equal-to-file-name`](./rules/class-name-equal-to-file-name/README.md): Require CSS class names in a file to be equal to the file name.
+- [`bem-newbie/display-deny-inline`](./rules/display-deny-inline/README.md): Deny 'inline-...' values for the 'display' CSS property.
 - [`bem-newbie/duplicated-property-value-in-media`](./rules/duplicated-property-value-in-media/README.md): Require property values in @media sections to not duplicate values for the same properties in previous @media sections.
 - [`bem-newbie/duplicated-property-value-in-modifier`](./rules/duplicated-property-value-in-modifier/README.md): Require property values in BEM modifier to not duplicate values for the same properties in its BEM block/element.
 - [`bem-newbie/font-face-declaration-in-fonts-file-only`](./rules/font-face-declaration-in-fonts-file-only/README.md): Disallow @font-face statements in CSS files in the 'blocks' folder.
